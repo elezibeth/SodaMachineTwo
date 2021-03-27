@@ -10,6 +10,7 @@ namespace SodaMachine
     {
         //Member Variables (Has A)
 
+
         //Constructor (Spawner)
         public Penny()
         {
