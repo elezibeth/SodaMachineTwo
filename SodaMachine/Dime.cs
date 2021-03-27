@@ -13,7 +13,7 @@ namespace SodaMachine
         //Constructor (Spawner)
         public Dime()
         {
-            Name = "Dime";
+            name = "Dime";
             value = 0.10;
         }
 

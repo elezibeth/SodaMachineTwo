@@ -83,6 +83,7 @@ namespace SodaMachine
         private void Transaction(Customer customer)
         {
             
+            
         }
         //Gets a soda from the inventory based on the name of the soda.
         private Can GetSodaFromInventory(string nameOfSoda)
@@ -161,7 +162,7 @@ namespace SodaMachine
                 _register.Remove(quarter);
                 price -= .25;
             }
-            while (price >= .1 && egisterHasCoin("Dime"))
+            while (price >= .1 && RegisterHasCoin("Dime"))
             {
                 Dime dime = new Dime();
                 gatheredCoins.Add(dime);
