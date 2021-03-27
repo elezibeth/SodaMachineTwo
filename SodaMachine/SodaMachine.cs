@@ -82,11 +82,55 @@ namespace SodaMachine
         //pass payment to the calculate transaction method to finish up the transaction based on the results.
         private void Transaction(Customer customer)
         {
-           
+            
         }
         //Gets a soda from the inventory based on the name of the soda.
         private Can GetSodaFromInventory(string nameOfSoda)
         {
+
+            switch (nameOfSoda)
+            {
+                case "Cola":
+                    Cola cola = new Cola();
+                    if (_inventory.Contains(cola))
+                    {
+                        _inventory.Remove(cola);
+                        return cola;
+                    }
+                    else
+                    {
+                        return null;
+                       
+                    }
+                   
+                case "Orange Soda":
+                    OrangeSoda orangeSoda = new OrangeSoda();
+                    if (_inventory.Contains(orangeSoda))
+                    {
+                        _inventory.Remove(orangeSoda);
+                        return orangeSoda;
+                    }
+                    else
+                    {
+                        return null;
+
+                    }
+                case "Root Beer":
+                    RootBeer rootBeer = new RootBeer();
+                    if (_inventory.Contains(rootBeer))
+                    {
+                        _inventory.Remove(rootBeer);
+                        return rootBeer;
+                    }
+                    else
+                    {
+                        return null;
+
+                    }
+                default:
+                    return null;
+
+            }
           
         }
 
