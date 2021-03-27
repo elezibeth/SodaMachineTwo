@@ -54,7 +54,16 @@ namespace SodaMachine
         //A method to fill the sodamachines inventory with soda can objects.
         public void FillInventory()
         {
-            
+            for (int i = 20; i > 0; i--)
+            {
+                OrangeSoda orangeSoda = new OrangeSoda();
+                Cola cola = new Cola();
+                RootBeer rootBeer = new RootBeer();
+                _inventory.Add(orangeSoda);
+                _inventory.Add(cola);
+                _inventory.Add(rootBeer);
+            }
+
         }
         //Method to be called to start a transaction.
         //Takes in a customer which can be passed freely to which ever method needs it.
