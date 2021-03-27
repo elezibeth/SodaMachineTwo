@@ -26,6 +26,31 @@ namespace SodaMachine
         //When all is said and done this method will return a list of coin objects that the customer will use a payment for their soda.
         public List<Coin> GatherCoinsFromWallet(Can selectedCan)
         {
+            List<Coin> gatheredCoins = new List<Coin>();
+            double price = selectedCan.Price;
+            while(price >= .25)
+            {
+                gatheredCoins.Add(GetCoinFromWallet("Quarter"));
+                price -= .25;
+            }
+            while(price >= .1)
+            {
+                gatheredCoins.Add(GetCoinFromWallet("Dime"));
+                price -= .1;
+            }
+            while(price >= .05)
+            {
+                gatheredCoins.Add(GetCoinFromWallet("Nickel"));
+                price -= .05;
+            }
+            while(price >= .01)
+            {
+                gatheredCoins.Add(GetCoinFromWallet("Penny"));
+                price -= .01;
+            }
+            return gatheredCoins;
+
+
           
         }
         //Returns a coin object from the wallet based on the name passed into it.

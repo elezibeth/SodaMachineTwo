@@ -17,6 +17,7 @@ namespace SodaMachine
         {
             _customer = new Customer();
             _sodaMachine = new SodaMachine();
+            Simulate();
         }
 
         //Member Methods

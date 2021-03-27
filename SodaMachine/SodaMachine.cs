@@ -163,16 +163,45 @@ namespace SodaMachine
         //Returns null if no coin can be found of that name.
         private Coin GetCoinFromRegister(string name)
         {
+            switch (name)
+            {
+                case "Penny":
+                    Penny penny = new Penny();
+                    _register.Remove(penny);
+                    return penny;
+                case "Nickel":
+                    Nickel nickel = new Nickel();
+                    _register.Remove(nickel);
+                    return nickel;
+                case "Dime":
+                    Dime dime = new Dime();
+                    _register.Remove(dime);
+                    return dime;
+                case "Quarter":
+                    Quarter quarter = new Quarter();
+                    _register.Remove(quarter);
+                    return quarter;
+                default:
+                    return null;
+            }
             
         }
         //Takes in the total payment amount and the price of can to return the change amount.
         private double DetermineChange(double totalPayment, double canPrice)
         {
+            double change = totalPayment - canPrice;
+            return change;
             
         }
         //Takes in a list of coins to returnt he total value of the coins as a double.
         private double TotalCoinValue(List<Coin> payment)
         {
+            double value = 0.0;
+                foreach(Coin coin in payment)
+            {
+                value += coin.Value;
+            }
+            return value;
            
         }
         //Puts a list of coins into the soda machines register.
