@@ -162,8 +162,27 @@ namespace SodaMachine
         //If the payment does not meet the cost of the soda: despense payment back to the customer.
         private void CalculateTransaction(List<Coin> payment, Can chosenSoda, Customer customer)
         {
-            if//payment greater than soda cost && sodaMachine has enough change to return{
+            double paymentValue = TotalCoinValue(payment);
+            double change = DetermineChange(paymentValue, chosenSoda.Price);
+            double registerValue = TotalCoinValue(_register);
+            //payment greater than soda cost && sodaMachine has enough change to return{
              //   { dispense soda}, also dispense change
+             if(paymentValue > chosenSoda.Price && _inventory.Contains(chosenSoda) && registerValue >= change)
+            {
+                //dispense soda
+                _inventory.Remove(chosenSoda);
+                //ensure customer puts soda in bag
+                customer.AddCanToBackpack(chosenSoda);
+                //remove soda from inventory
+                //dispenseChange
+                List<Coin> changeCoins = new List<Coin>();
+                changeCoins = GatherChange(change);
+                //return change to customer
+                foreach(Coin choin in changeCoins)
+                {
+                    customer.Wallet.walletCoins.Add(choin);
+                }
+            }
              if// payment greater than price of soda && sodamachine doesnt have enough change
                     //{ return payment to customer}
                     if// paymnet is exact to cost of soda,
