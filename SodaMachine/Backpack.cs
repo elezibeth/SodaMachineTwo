@@ -15,6 +15,7 @@ namespace SodaMachine
         {
             cans = new List<Can>();
         }
+   
 
         //Member Methods (Can Do)
     }
