@@ -169,19 +169,7 @@ namespace SodaMachine
              //   { dispense soda}, also dispense change
              if(paymentValue > chosenSoda.Price && _inventory.Contains(chosenSoda) && registerValue >= change)
             {
-               
-                _inventory.Remove(chosenSoda);
-                customer.AddCanToBackpack(chosenSoda);
-                List<Coin> changeCoins = new List<Coin>();
-                changeCoins = GatherChange(change);
-                foreach(Coin choin in changeCoins)
-                {
-                    customer.Wallet.walletCoins.Add(choin);
-                }
-                foreach(Coin coin in payment)
-                {
-                    _register.Add(coin);
-                }
+                DispenseSodaAndChange(chosenSoda, change, customer, payment);
             }
             if (paymentValue > chosenSoda.Price && _inventory.Contains(chosenSoda) == false && registerValue >= change)
             {
@@ -223,6 +211,22 @@ namespace SodaMachine
             }
 
            
+        }
+        private void DispenseSodaAndChange(Can chosenSoda, double change, Customer customer, List<Coin> payment)
+        {
+            _inventory.Remove(chosenSoda);
+            customer.AddCanToBackpack(chosenSoda);
+            List<Coin> changeCoins = new List<Coin>();
+            changeCoins = GatherChange(change);
+            foreach (Coin choin in changeCoins)
+            {
+                customer.Wallet.walletCoins.Add(choin);
+            }
+            foreach (Coin coin in payment)
+            {
+                _register.Add(coin);
+            }
+
         }
         //Takes in the value of the amount of change needed.
         //Attempts to gather all the required coins from the sodamachine's register to make change.
