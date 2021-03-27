@@ -157,7 +157,28 @@ namespace SodaMachine
         //If it does have one, return true.  Else, false.
         private bool RegisterHasCoin(string name)
         {
-           
+            switch (name)
+            {
+                case "Penny":
+                    Penny penny = new Penny();
+                    bool hasCoin = _register.Contains(penny);
+                    return hasCoin;
+                case "Nickel":
+                    Nickel nickel = new Nickel();
+                    bool hasCoin2 = _register.Contains(nickel);
+                    return hasCoin2;
+                case "Dime":
+                    Dime dime = new Dime();
+                    bool hasCoin3 =_register.Contains(dime);
+                    return hasCoin3;
+                case "Quarter":
+                    Quarter quarter = new Quarter();
+                    bool hasCoin4 = _register.Contains(quarter);
+                    return hasCoin4;
+                default:
+                    return false;
+            }
+
         }
         //Reusable method to return a coin from the register.
         //Returns null if no coin can be found of that name.
@@ -207,6 +228,10 @@ namespace SodaMachine
         //Puts a list of coins into the soda machines register.
         private void DepositCoinsIntoRegister(List<Coin> coins)
         {
+            foreach(Coin coin in coins)
+            {
+                _register.Add(coin);
+            }
            
         }
     }
