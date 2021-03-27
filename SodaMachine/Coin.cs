@@ -21,6 +21,8 @@ namespace SodaMachine
 
 
         }
+        // As a developer, I want my Coin classes to have a read-only property for double value(public property & protected field for member variable double value).
+
         //Constructor (Spawner)
 
         //Member Methods (Can Do)
