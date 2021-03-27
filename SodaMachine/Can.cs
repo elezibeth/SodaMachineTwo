@@ -10,7 +10,7 @@ namespace SodaMachine
     {
         //Member Variables (Has A)
         protected double price;
-        public string Name;
+        public string name;
 
         public double Price
         { 
@@ -20,6 +20,10 @@ namespace SodaMachine
             }
         }
         //Constructor (Spawner)
+        public Can()
+        {
+
+        }
 
         //Member Methods (Can Do)
     }
