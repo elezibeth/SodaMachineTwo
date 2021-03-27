@@ -32,6 +32,24 @@ namespace SodaMachine
         //Returns null if no coin can be found
         public Coin GetCoinFromWallet(string coinName)
         {
+            Coin inputCoin;
+            switch (coinName)
+            {
+                case "Penny":
+                    
+                break;
+                case "Nickel":
+                break;
+                case "Dime":
+                break;
+                case "Quarter":
+                break;
+            }
+                case "Penny":
+                 
+            Coin selectedCoin;
+            Wallet.walletCoins.Contains(selectedCoin);
+            return selectedCoin;
             
         }
         //Takes in a list of coin objects to add into the customers wallet.

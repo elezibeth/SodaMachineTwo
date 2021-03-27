@@ -42,5 +42,65 @@ namespace SodaMachine
             }
 
         }
+        public Coin getPenny()
+        {
+            Penny penny = new Penny();
+            bool coinExists = walletCoins.Contains(penny);
+            if (coinExists == true)
+            {
+                walletCoins.Remove(penny);
+                return penny;
+            }
+            else
+            {
+                return null;
+            }
+                    
+        }
+        public Coin getNickel()
+        {
+            Nickel nickel = new Nickel();
+            bool coinExists = walletCoins.Contains(nickel);
+            if (coinExists == true)
+            {
+                walletCoins.Remove(nickel);
+                return nickel;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+        public Coin getQuarter()
+        {
+            Quarter quarter = new Quarter();
+            bool coinExists = walletCoins.Contains(quarter);
+            if (coinExists == true)
+            {
+                walletCoins.Remove(quarter);
+                return quarter;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+        public Coin getDime()
+        {
+            Dime dime = new Dime();
+            bool coinExists = walletCoins.Contains(dime);
+            if (coinExists == true)
+            {
+                walletCoins.Remove(dime);
+                return dime;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
     }
 }
