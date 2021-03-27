@@ -169,25 +169,59 @@ namespace SodaMachine
              //   { dispense soda}, also dispense change
              if(paymentValue > chosenSoda.Price && _inventory.Contains(chosenSoda) && registerValue >= change)
             {
-                //dispense soda
+               
                 _inventory.Remove(chosenSoda);
-                //ensure customer puts soda in bag
                 customer.AddCanToBackpack(chosenSoda);
-                //remove soda from inventory
-                //dispenseChange
                 List<Coin> changeCoins = new List<Coin>();
                 changeCoins = GatherChange(change);
-                //return change to customer
                 foreach(Coin choin in changeCoins)
                 {
                     customer.Wallet.walletCoins.Add(choin);
                 }
+                foreach(Coin coin in payment)
+                {
+                    _register.Add(coin);
+                }
             }
-             if// payment greater than price of soda && sodamachine doesnt have enough change
-                    //{ return payment to customer}
-                    if// paymnet is exact to cost of soda,
-                        //{dispense soda}
-                        if//payment is too low, return payment to customer
+            if (paymentValue > chosenSoda.Price && _inventory.Contains(chosenSoda) == false && registerValue >= change)
+            {
+               foreach(Coin coin in payment)
+                {
+                    customer.Wallet.walletCoins.Add(coin);
+                }
+            }
+
+            if(paymentValue > chosenSoda.Price && registerValue < change)
+                {
+                    foreach(Coin coin in payment)
+                    {
+                        customer.Wallet.walletCoins.Add(coin);
+                    }
+                }
+             if(paymentValue == chosenSoda.Price && _inventory.Contains(chosenSoda))
+            {
+                _inventory.Remove(chosenSoda);
+                customer.Backpack.cans.Add(chosenSoda);
+                foreach(Coin coin in payment)
+                {
+                    _register.Add(coin);
+                }
+            }
+            if (paymentValue == chosenSoda.Price && _inventory.Contains(chosenSoda) == false)
+            {
+                foreach(Coin coin in payment)
+                {
+                    customer.Wallet.walletCoins.Add(coin);
+                }
+            }
+            if (paymentValue < chosenSoda.Price)
+            {
+                foreach(Coin coin in payment)
+                {
+                    customer.Wallet.walletCoins.Add(coin);
+                }
+            }
+
            
         }
         //Takes in the value of the amount of change needed.
