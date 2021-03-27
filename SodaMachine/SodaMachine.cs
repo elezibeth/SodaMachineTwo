@@ -165,8 +165,6 @@ namespace SodaMachine
             double paymentValue = TotalCoinValue(payment);
             double change = DetermineChange(paymentValue, chosenSoda.Price);
             double registerValue = TotalCoinValue(_register);
-            //payment greater than soda cost && sodaMachine has enough change to return{
-             //   { dispense soda}, also dispense change
              if(paymentValue > chosenSoda.Price && _inventory.Contains(chosenSoda) && registerValue >= change)
             {
                 DispenseSodaAndChange(chosenSoda, change, customer, payment);
@@ -178,7 +176,6 @@ namespace SodaMachine
                     customer.Wallet.walletCoins.Add(coin);
                 }
             }
-
             if(paymentValue > chosenSoda.Price && registerValue < change)
                 {
                     foreach(Coin coin in payment)
@@ -188,12 +185,7 @@ namespace SodaMachine
                 }
              if(paymentValue == chosenSoda.Price && _inventory.Contains(chosenSoda))
             {
-                _inventory.Remove(chosenSoda);
-                customer.Backpack.cans.Add(chosenSoda);
-                foreach(Coin coin in payment)
-                {
-                    _register.Add(coin);
-                }
+                DispenseSoda(chosenSoda, customer, payment);
             }
             if (paymentValue == chosenSoda.Price && _inventory.Contains(chosenSoda) == false)
             {
@@ -209,8 +201,6 @@ namespace SodaMachine
                     customer.Wallet.walletCoins.Add(coin);
                 }
             }
-
-           
         }
         private void DispenseSodaAndChange(Can chosenSoda, double change, Customer customer, List<Coin> payment)
         {
@@ -227,6 +217,15 @@ namespace SodaMachine
                 _register.Add(coin);
             }
 
+        }
+        private void DispenseSoda(Can chosenSoda, Customer customer, List<Coin> payment)
+        {
+            _inventory.Remove(chosenSoda);
+            customer.Backpack.cans.Add(chosenSoda);
+            foreach (Coin coin in payment)
+            {
+                _register.Add(coin);
+            }
         }
         //Takes in the value of the amount of change needed.
         //Attempts to gather all the required coins from the sodamachine's register to make change.
