@@ -82,7 +82,25 @@ namespace SodaMachine
         //pass payment to the calculate transaction method to finish up the transaction based on the results.
         private void Transaction(Customer customer)
         {
-            
+           
+            //get selection
+            string chosenSoda = UserInterface.SodaSelection(_inventory);
+            Can can = GetSodaFromInventory(chosenSoda);
+
+            //get payment from customer
+            List<Coin> payment = new List<Coin>();
+
+            List<string> coinNamesChosenByCustoemr = new List<string>();
+            coinNamesChosenByCustoemr.Add(UserInterface.CoinSelection(can, customer.Wallet.walletCoins));
+            List<Coin> coinsChosenByCustomer = new List<Coin>();
+            foreach(string coinName in coinNamesChosenByCustoemr)
+            {
+                Coin coin = customer.GetCoinFromWallet(coinName);
+                coinsChosenByCustomer.Add(coin);
+            }
+
+            //calculateTransaction
+            CalculateTransaction(coinsChosenByCustomer, can, customer);
             
         }
         //Gets a soda from the inventory based on the name of the soda.
@@ -144,6 +162,13 @@ namespace SodaMachine
         //If the payment does not meet the cost of the soda: despense payment back to the customer.
         private void CalculateTransaction(List<Coin> payment, Can chosenSoda, Customer customer)
         {
+            if//payment greater than soda cost && sodaMachine has enough change to return{
+             //   { dispense soda}, also dispense change
+             if// payment greater than price of soda && sodamachine doesnt have enough change
+                    //{ return payment to customer}
+                    if// paymnet is exact to cost of soda,
+                        //{dispense soda}
+                        if//payment is too low, return payment to customer
            
         }
         //Takes in the value of the amount of change needed.
