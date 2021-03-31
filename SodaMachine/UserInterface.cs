@@ -113,12 +113,32 @@ namespace SodaMachine
                 Console.WriteLine($"\t{can.name}");
            }
         }
+        public static int ValidateUserInput(List<Can> sodaOptions)
+        {
+            string input = Console.ReadLine();
+            switch (input)
+            {
+
+                case "1":
+                    continue;
+                case "2":
+                    continue;
+                case "3":
+                    continue;
+                default:
+                    SodaSelection(sodaOptions);
+                    break;
+
+            }
+            int inputParsed = Convert.ToInt32(input);
+            return inputParsed;
+
+        }
         //Takes in the inventory of sodas to provide the user with an interface for their selection.
         public static string SodaSelection(List<Can> SodaOptions)
         {
             Tuple<bool, string> validatedSodaSelection;
             List<Can> uniqueCans = GetUniqueCans(SodaOptions);
-            int selection;
             do
             {
                 Console.WriteLine("\nPlease choose from the following.");
@@ -126,9 +146,13 @@ namespace SodaMachine
                 {
                     Console.WriteLine($"\n\tEnter -{i + 1}- for {uniqueCans[i].name} : ${uniqueCans[i].Price}");
                 }
-                int.TryParse(Console.ReadLine(), out selection);
+           
+                int input = ValidateUserInput(SodaOptions);
+                int selection = input;
+                //int.TryParse(Console.ReadLine(), out selection);
                 validatedSodaSelection = ValidateSodaSelection(selection, uniqueCans);
-            } while (!validatedSodaSelection.Item1);
+            } 
+            while (!validatedSodaSelection.Item1);
 
             return validatedSodaSelection.Item2;
            
