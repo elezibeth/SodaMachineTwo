@@ -111,41 +111,51 @@ namespace SodaMachine
             {
                 case "Cola":
                     Cola cola = new Cola();
-                    if (_inventory.Contains(cola))
+                    _inventory.Add(cola);
+                    bool inStock = DetermineIfCanInInventory(nameOfSoda);
+                    if(inStock == true)
                     {
+                        Console.WriteLine("Cola in stock!");
                         _inventory.Remove(cola);
                         return cola;
+
                     }
                     else
                     {
                         return null;
-
                     }
+
 
                 case "Orange Soda":
                     OrangeSoda orangeSoda = new OrangeSoda();
-                    if (_inventory.Contains(orangeSoda))
+                    _inventory.Add(orangeSoda);
+                    inStock = DetermineIfCanInInventory(nameOfSoda);
+                    if (inStock == true)
                     {
+                        Console.WriteLine("Orange soda in stock!");
                         _inventory.Remove(orangeSoda);
                         return orangeSoda;
+
                     }
                     else
                     {
                         return null;
-
                     }
                 case "Root Beer":
-                    foreach(Can can in _inventory)
+                    RootBeer rootBeer = new RootBeer();
+                    _inventory.Add(rootBeer);
+                    inStock = DetermineIfCanInInventory(nameOfSoda);
+                    if (inStock == true)
                     {
-                        if(can.name == "RootBeer")
-                        {
-                            
-                            _inventory.Remove(can);
-                   
-                        }
-                        
+                        Console.WriteLine("RootBeer in stock!");
+                        _inventory.Remove(rootBeer);
+                        return rootBeer;
+
                     }
-                    return null;
+                    else
+                    {
+                        return null;
+                    }
                 default:
                     return null;
 
