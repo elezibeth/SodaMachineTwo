@@ -36,8 +36,9 @@ namespace SodaMachine
         }
         //Method for getting user input for the selected coin.
         //Uses a tuple to help group valadation boolean and normalized selection name.
-        public static string CoinSelection(Can selectedCan, List<Coin> paymnet)
+        public static List<string> CoinSelection(Can selectedCan, List<Coin> paymnet)
         {
+            List<string> coinList = new List<string>();
             Tuple<bool, string> validatedSelection;
             do
             {
@@ -51,11 +52,15 @@ namespace SodaMachine
                 Console.WriteLine("Enter -5- when finishd to deposit payment");
                 int.TryParse(Console.ReadLine(), out int selection);
                 validatedSelection = ValidateCoinChoice(selection);
-               
+                if(validatedSelection.Item2 != "Done")
+                {
+                    coinList.Add(validatedSelection.Item2);
+                }
+                
             }
-            while (!validatedSelection.Item1);
+            while (!validatedSelection.Item1 && validatedSelection.Item2 != "Done");
 
-            return validatedSelection.Item2;
+            return coinList;
 
         }
         //For validating the selected coin choice. Returns a tuple with a bool for if its a valid input and the normalized name of the coin

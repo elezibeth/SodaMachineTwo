@@ -91,7 +91,7 @@ namespace SodaMachine
             List<Coin> payment = new List<Coin>();
 
             List<string> coinNamesChosenByCustoemr = new List<string>();
-            coinNamesChosenByCustoemr.Add(UserInterface.CoinSelection(can, customer.Wallet.walletCoins));
+            coinNamesChosenByCustoemr = UserInterface.CoinSelection(can, customer.Wallet.walletCoins);
             List<Coin> coinsChosenByCustomer = new List<Coin>();
             foreach(string coinName in coinNamesChosenByCustoemr)
             {
