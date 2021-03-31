@@ -120,11 +120,11 @@ namespace SodaMachine
             {
 
                 case "1":
-                    continue;
+                    break;
                 case "2":
-                    continue;
+                     break;
                 case "3":
-                    continue;
+                    break;
                 default:
                     SodaSelection(sodaOptions);
                     break;

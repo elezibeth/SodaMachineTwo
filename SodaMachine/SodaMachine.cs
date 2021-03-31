@@ -119,9 +119,9 @@ namespace SodaMachine
                     else
                     {
                         return null;
-                       
+
                     }
-                   
+
                 case "Orange Soda":
                     OrangeSoda orangeSoda = new OrangeSoda();
                     if (_inventory.Contains(orangeSoda))
@@ -135,22 +135,66 @@ namespace SodaMachine
 
                     }
                 case "Root Beer":
-                    RootBeer rootBeer = new RootBeer();
-                    if (_inventory.Contains(rootBeer))
+                    foreach(Can can in _inventory)
                     {
-                        _inventory.Remove(rootBeer);
-                        return rootBeer;
+                        if(can.name == "RootBeer")
+                        {
+                            
+                            _inventory.Remove(can);
+                   
+                        }
+                        
                     }
-                    else
-                    {
-                        return null;
-
-                    }
+                    return null;
                 default:
                     return null;
 
             }
           
+        }
+        private bool DetermineIfCanInInventory(string sodaName)
+        {
+            bool isInStock = false;
+            switch (sodaName)
+            {
+                case "Cola":
+                   foreach(Can can in _inventory)
+                    {
+                        if(can.name == "Cola")
+                        {
+                            isInStock = true;
+                        }
+                    }
+                    break;
+
+                case "Orange Soda":
+                    OrangeSoda orangeSoda = new OrangeSoda();
+                    foreach(Can can in _inventory)
+                    {
+                        if(can.name == "Orange Soda")
+                        {
+                            isInStock = true;
+                        }
+
+                    }
+                    break;
+                case "Root Beer":
+                    foreach (Can can in _inventory)
+                    {
+                        if (can.name == "RootBeer")
+                        {
+
+                            isInStock = true;
+
+                        }
+
+                    }
+                    break;
+                   
+
+            }
+            return isInStock;
+
         }
 
         //This is the main method for calculating the result of the transaction.
