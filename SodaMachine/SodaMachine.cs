@@ -184,6 +184,7 @@ namespace SodaMachine
             //accurate calculation of pennies
             double change = DetermineChange(paymentValue, chosenSoda.Price);
             //change determined correctly
+            
             double registerValue = TotalCoinValue(_register);
             bool inventoryContainsSoda = InventoryHasSoda(chosenSoda);
             if (paymentValue > chosenSoda.Price && inventoryContainsSoda == true && registerValue >= change)
@@ -306,23 +307,24 @@ namespace SodaMachine
         //Returns null if no coin can be found of that name.
         private Coin GetCoinFromRegister(string name)
         {
+            int num = _register.FindLastIndex(c => c.Name == name);
             switch (name)
             {
                 case "Penny":
                     Penny penny = new Penny();
-                    _register.Remove(penny);
+                    _register.RemoveAt(num);
                     return penny;
                 case "Nickel":
                     Nickel nickel = new Nickel();
-                    _register.Remove(nickel);
+                    _register.RemoveAt(num);
                     return nickel;
                 case "Dime":
                     Dime dime = new Dime();
-                    _register.Remove(dime);
+                    _register.RemoveAt(num);
                     return dime;
                 case "Quarter":
                     Quarter quarter = new Quarter();
-                    _register.Remove(quarter);
+                    _register.RemoveAt(num);
                     return quarter;
                 default:
                     return null;
