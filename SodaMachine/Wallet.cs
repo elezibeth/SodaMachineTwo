@@ -59,7 +59,7 @@ namespace SodaMachine
             if (coinExists == true)
             {
                 int coin = walletCoins.FindLastIndex(q => q.Name == "Penny");
-                walletCoins.[coin].Remove();
+                walletCoins.RemoveAt(coin);
                 Penny penny = new Penny();
                 return penny;
 
@@ -88,7 +88,7 @@ namespace SodaMachine
             if (coinExists == true)
             {
                 int coin = walletCoins.FindLastIndex(q => q.Name == "Nickel");
-                walletCoins.[coin].Remove();
+                walletCoins.RemoveAt(coin);
                 Nickel nickel = new Nickel();
                 return nickel;
 
@@ -117,7 +117,7 @@ namespace SodaMachine
           if(coinExists == true)
             {
                 int coin = walletCoins.FindLastIndex(q => q.Name == "Quarter");
-                walletCoins.[coin].Remove();
+                walletCoins.RemoveAt(coin);
                 Quarter quarter = new Quarter();
                 return quarter;
 
@@ -147,7 +147,7 @@ namespace SodaMachine
             if (coinExists == true)
             {
                 int coin = walletCoins.FindLastIndex(q => q.Name == "Dime");
-                walletCoins.[coin].Remove();
+                walletCoins.RemoveAt(coin);
                 Dime dime = new Dime();
                 return dime;
 
