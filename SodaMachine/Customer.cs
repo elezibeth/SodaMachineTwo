@@ -93,6 +93,8 @@ namespace SodaMachine
         public void AddCanToBackpack(Can purchasedCan)
         {
             Backpack.cans.Add(purchasedCan);
+            Console.WriteLine($"{purchasedCan.name} in backpack");
+            Console.ReadLine();
             
         }
     }

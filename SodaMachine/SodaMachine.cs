@@ -74,7 +74,7 @@ namespace SodaMachine
             {
                 Transaction(customer);
             }
-        }
+         }
         
         //This is the main transaction logic think of it like "runGame".  This is where the user will be prompted for the desired soda.
         //grab the desired soda from the inventory.
@@ -86,125 +86,85 @@ namespace SodaMachine
             //get selection
             string chosenSoda = UserInterface.SodaSelection(_inventory);
             Can can = GetSodaFromInventory(chosenSoda);
+            //all three returned 
 
             //get payment from customer
             List<Coin> payment = new List<Coin>();
 
             List<string> coinNamesChosenByCustoemr = new List<string>();
             coinNamesChosenByCustoemr = UserInterface.CoinSelection(can, customer.Wallet.walletCoins);
+            //all four names returned
             List<Coin> coinsChosenByCustomer = new List<Coin>();
             foreach(string coinName in coinNamesChosenByCustoemr)
             {
                 Coin coin = customer.GetCoinFromWallet(coinName);
                 coinsChosenByCustomer.Add(coin);
+                //all four coins transfered
             }
 
             //calculateTransaction
             CalculateTransaction(coinsChosenByCustomer, can, customer);
+            //moving to calculate transaction
             
         }
        
         //Gets a soda from the inventory based on the name of the soda.
         private Can GetSodaFromInventory(string nameOfSoda)
         {
-
-            switch (nameOfSoda)
+            bool inStock = DetermineIfCanInInventory(nameOfSoda);
+            if (inStock == false)
             {
-                case "Cola":
-                    Cola cola = new Cola();
-                    _inventory.Add(cola);
-                    bool inStock = DetermineIfCanInInventory(nameOfSoda);
-                    if(inStock == true)
-                    {
-                        Console.WriteLine("Cola in stock!");
-                        _inventory.Remove(cola);
-                        return cola;
-
-                    }
-                    else
-                    {
-                        return null;
-                    }
-
-
-                case "Orange Soda":
-                    OrangeSoda orangeSoda = new OrangeSoda();
-                    _inventory.Add(orangeSoda);
-                    inStock = DetermineIfCanInInventory(nameOfSoda);
-                    if (inStock == true)
-                    {
-                        Console.WriteLine("Orange soda in stock!");
-                        _inventory.Remove(orangeSoda);
-                        return orangeSoda;
-
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                case "Root Beer":
-                    RootBeer rootBeer = new RootBeer();
-                    _inventory.Add(rootBeer);
-                    inStock = DetermineIfCanInInventory(nameOfSoda);
-                    if (inStock == true)
-                    {
-                        Console.WriteLine("RootBeer in stock!");
-                        _inventory.Remove(rootBeer);
-                        return rootBeer;
-
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                default:
-                    return null;
-
+                Console.WriteLine("GetSodaFromInventory error. Soda not found. Money will be accepted and test can returned.");
+                Console.ReadLine();
+                return null;
             }
+            else
+            {
+
+
+                Can can;
+                switch (nameOfSoda)
+                {
+                    case "Cola":
+                        int num = _inventory.FindLastIndex(s => s.name == "Cola");
+                        _inventory.RemoveAt(num);
+                        Cola cola = new Cola();
+                        can = cola;
+                        return can;
+
+                    case "Orange Soda":
+                        num = _inventory.FindLastIndex(s => s.name == "Orange Soda");
+                        _inventory.RemoveAt(num);
+                        OrangeSoda os = new OrangeSoda();
+                        can = os;
+                        return can;
+                    case "Root Beer":
+                        num = _inventory.FindLastIndex(s => s.name == "Root Beer");
+                        _inventory.RemoveAt(num);
+                        RootBeer rb = new RootBeer();
+                        can = rb;
+                        return can;
+                    default:
+                        return null;
+                }
+                
+            }
+            
           
         }
         private bool DetermineIfCanInInventory(string sodaName)
         {
-            bool isInStock = false;
-            switch (sodaName)
+            bool hasSoda = false;
+            string name = sodaName;
+            foreach (Can item in _inventory)
             {
-                case "Cola":
-                   foreach(Can can in _inventory)
-                    {
-                        if(can.name == "Cola")
-                        {
-                            isInStock = true;
-                        }
-                    }
-                    break;
-
-                case "Orange Soda":
-                    OrangeSoda orangeSoda = new OrangeSoda();
-                    foreach(Can can in _inventory)
-                    {
-                        if(can.name == "Orange Soda")
-                        {
-                            isInStock = true;
-                        }
-
-                    }
-                    break;
-                case "Root Beer":
-                    foreach (Can can in _inventory)
-                    {
-                        if (can.name == "RootBeer")
-                        {
-
-                            isInStock = true;
-
-                        }
-
-                    }
-                    break;
-                   
-
+                if (item.name == name)
+                {
+                    hasSoda = true;
+                }
             }
-            return isInStock;
+            return hasSoda;
+
 
         }
 
@@ -218,14 +178,23 @@ namespace SodaMachine
         private void CalculateTransaction(List<Coin> payment, Can chosenSoda, Customer customer)
         {
             double paymentValue = TotalCoinValue(payment);
+            //accurate calculation of 4 quarters
+            //accurate calculation of dimes
+            //accurate calculation of nickels
+            //accurate calculation of pennies
             double change = DetermineChange(paymentValue, chosenSoda.Price);
+            //change determined correctly
             double registerValue = TotalCoinValue(_register);
-             if(paymentValue > chosenSoda.Price && _inventory.Contains(chosenSoda) && registerValue >= change)
+            bool inventoryContainsSoda = InventoryHasSoda(chosenSoda);
+            if (paymentValue > chosenSoda.Price && inventoryContainsSoda == true && registerValue >= change)
             {
+                double changeValue2 = paymentValue - chosenSoda.Price;
+                UserInterface.OutputText($"{chosenSoda.name} dispensed. ${changeValue2} returned to you.");
                 DispenseSodaAndChange(chosenSoda, change, customer, payment);
             }
-            if (paymentValue > chosenSoda.Price && _inventory.Contains(chosenSoda) == false && registerValue >= change)
+            if (paymentValue > chosenSoda.Price && inventoryContainsSoda == false && registerValue >= change)
             {
+                UserInterface.OutputText($"No soda available. ${paymentValue} returned to you.");
                foreach(Coin coin in payment)
                 {
                     customer.Wallet.walletCoins.Add(coin);
@@ -233,17 +202,19 @@ namespace SodaMachine
             }
             if(paymentValue > chosenSoda.Price && registerValue < change)
                 {
+                     UserInterface.OutputText($"Exact change required. $ {paymentValue} returned to you.");
                     foreach(Coin coin in payment)
                     {
                         customer.Wallet.walletCoins.Add(coin);
                     }
                 }
-             if(paymentValue == chosenSoda.Price && _inventory.Contains(chosenSoda))
+             if(paymentValue == chosenSoda.Price && inventoryContainsSoda == true)
             {
                 DispenseSoda(chosenSoda, customer, payment);
             }
-            if (paymentValue == chosenSoda.Price && _inventory.Contains(chosenSoda) == false)
+            if (paymentValue == chosenSoda.Price && inventoryContainsSoda == false)
             {
+                UserInterface.OutputText($"Soda Not available. {paymentValue} returned to you.");
                 foreach(Coin coin in payment)
                 {
                     customer.Wallet.walletCoins.Add(coin);
@@ -251,6 +222,8 @@ namespace SodaMachine
             }
             if (paymentValue < chosenSoda.Price)
             {
+                double display = chosenSoda.Price - paymentValue;
+                UserInterface.OutputText($"${display} change has been returned to you.");
                 foreach(Coin coin in payment)
                 {
                     customer.Wallet.walletCoins.Add(coin);
@@ -265,6 +238,7 @@ namespace SodaMachine
             changeCoins = GatherChange(change);
             foreach (Coin choin in changeCoins)
             {
+                
                 customer.Wallet.walletCoins.Add(choin);
             }
             foreach (Coin coin in payment)
@@ -293,30 +267,22 @@ namespace SodaMachine
             double price = changeValue;
             while (price >= .25 && RegisterHasCoin("Quarter"))
             {
-                Quarter quarter = new Quarter();
-                gatheredCoins.Add(quarter);
-                _register.Remove(quarter);
+                gatheredCoins.Add(GetCoinFromRegister("Quarter"));
                 price -= .25;
             }
             while (price >= .1 && RegisterHasCoin("Dime"))
             {
-                Dime dime = new Dime();
-                gatheredCoins.Add(dime);
-                _register.Remove(dime);
+                gatheredCoins.Add(GetCoinFromRegister("Dime"));
                 price -= .1;
             }
             while (price >= .05 && RegisterHasCoin("Nickel"))
             {
-                Nickel nickel = new Nickel();
-                gatheredCoins.Add(nickel);
-                _register.Remove(nickel);
+                gatheredCoins.Add(GetCoinFromRegister("Nickel"));
                 price -= .05;
             }
             while (price >= .01 && RegisterHasCoin("Penny"))
             {
-                Penny penny = new Penny();
-                gatheredCoins.Add(penny);
-                _register.Remove(penny);
+                gatheredCoins.Add(GetCoinFromRegister("Penny"));
                 price -= .01;
             }
             return gatheredCoins;
@@ -325,27 +291,15 @@ namespace SodaMachine
         //If it does have one, return true.  Else, false.
         private bool RegisterHasCoin(string name)
         {
-            switch (name)
+            bool hasCoin = false;
+            foreach(Coin coin in _register)
             {
-                case "Penny":
-                    Penny penny = new Penny();
-                    bool hasCoin = _register.Contains(penny);
-                    return hasCoin;
-                case "Nickel":
-                    Nickel nickel = new Nickel();
-                    bool hasCoin2 = _register.Contains(nickel);
-                    return hasCoin2;
-                case "Dime":
-                    Dime dime = new Dime();
-                    bool hasCoin3 =_register.Contains(dime);
-                    return hasCoin3;
-                case "Quarter":
-                    Quarter quarter = new Quarter();
-                    bool hasCoin4 = _register.Contains(quarter);
-                    return hasCoin4;
-                default:
-                    return false;
+                if(coin.Name == name)
+                {
+                    hasCoin = true;
+                }
             }
+            return hasCoin;
 
         }
         //Reusable method to return a coin from the register.
@@ -401,6 +355,19 @@ namespace SodaMachine
                 _register.Add(coin);
             }
            
+        }
+        private bool InventoryHasSoda(Can can)
+        {
+            bool hasSoda = false;
+            string name = can.name;
+           foreach(Can item in _inventory)
+            {
+                if(item.name == name)
+                {
+                    hasSoda = true;
+                }
+            }
+            return hasSoda;
         }
        
       
