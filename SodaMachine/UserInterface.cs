@@ -58,7 +58,7 @@ namespace SodaMachine
                 }
                 
             }
-            while (!validatedSelection.Item1 && validatedSelection.Item2 != "Done");
+            while (validatedSelection.Item1 == true && validatedSelection.Item2 != "Done");
 
             return coinList;
 
@@ -70,19 +70,24 @@ namespace SodaMachine
             {
                 case 1:
                     Console.Clear();
-                    return Tuple.Create(true, "Quarter");
+                    Tuple<bool, string> tup = Tuple.Create(true, "Quarter");
+                    return tup;
                 case 2:
                     Console.Clear();
-                    return Tuple.Create(true, "Dime");
+                    tup = Tuple.Create(true, "Dime");
+                    return tup;
                 case 3:
                     Console.Clear();
-                    return Tuple.Create(true, "Nickel");
+                    tup = Tuple.Create(true, "Nickel");
+                    return tup;
                 case 4:
                     Console.Clear();
-                    return Tuple.Create(true, "Penny");
+                    tup = Tuple.Create(true, "Penny");
+                    return tup;
                 case 5:
                     Console.Clear();
-                    return Tuple.Create(true, "Done");
+                    tup = Tuple.Create(true, "Done");
+                    return tup;
                 default:
                     DisplayError("Not a valid selection\n\nPress enter to continue");
                     return Tuple.Create(false, "Null");
@@ -167,7 +172,8 @@ namespace SodaMachine
         {
             if(input >= 0 && input <= uniqueCans.Count)
             {
-                return Tuple.Create(true, uniqueCans[input-1].name);
+                string nameCan = uniqueCans[input - 1].name;
+                return Tuple.Create(true, nameCan);
             }
             else
             {
@@ -202,7 +208,8 @@ namespace SodaMachine
         public static void DisplayCost(Can selectedSoda)
         {
             Console.Clear();
-            Console.WriteLine($"\nYou have selected {selectedSoda.name}.  This option will cost {selectedSoda.Price} \n");
+            double price = selectedSoda.Price;
+            Console.WriteLine($"\nYou have selected {selectedSoda.name}.  This option will cost {price} \n");
         }
         //Displays the total value of a list of coins.
         public static void DiplayTotalValueOfCoins(List<Coin> coinsToTotal)

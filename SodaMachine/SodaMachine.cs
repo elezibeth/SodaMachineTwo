@@ -103,6 +103,7 @@ namespace SodaMachine
             CalculateTransaction(coinsChosenByCustomer, can, customer);
             
         }
+       
         //Gets a soda from the inventory based on the name of the soda.
         private Can GetSodaFromInventory(string nameOfSoda)
         {

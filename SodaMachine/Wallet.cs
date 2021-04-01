@@ -44,27 +44,55 @@ namespace SodaMachine
         }
         public Coin getPenny()
         {
-            Penny penny = new Penny();
-            bool coinExists = walletCoins.Contains(penny);
+            bool coinExists = false;
+
+            foreach (Coin coin in walletCoins)
+            {
+                if (coin.Name == "Penny")
+                {
+
+                    coinExists = true;
+                }
+
+
+            }
             if (coinExists == true)
             {
-                walletCoins.Remove(penny);
+                int coin = walletCoins.FindLastIndex(q => q.Name == "Penny");
+                walletCoins.[coin].Remove();
+                Penny penny = new Penny();
                 return penny;
+
+
             }
             else
             {
                 return null;
             }
-                    
+
         }
         public Coin getNickel()
         {
-            Nickel nickel = new Nickel();
-            bool coinExists = walletCoins.Contains(nickel);
+            bool coinExists = false;
+
+            foreach (Coin coin in walletCoins)
+            {
+                if (coin.Name == "Nickel")
+                {
+
+                    coinExists = true;
+                }
+
+
+            }
             if (coinExists == true)
             {
-                walletCoins.Remove(nickel);
+                int coin = walletCoins.FindLastIndex(q => q.Name == "Nickel");
+                walletCoins.[coin].Remove();
+                Nickel nickel = new Nickel();
                 return nickel;
+
+
             }
             else
             {
@@ -74,27 +102,56 @@ namespace SodaMachine
         }
         public Coin getQuarter()
         {
-            Quarter quarter = new Quarter();
-            bool coinExists = walletCoins.Contains(quarter);
-            if (coinExists == true)
+            bool coinExists = false;
+       
+            foreach(Coin coin in walletCoins)
             {
-                walletCoins.Remove(quarter);
+                if(coin.Name == "Quarter")
+                {
+                   
+                    coinExists = true;
+                }
+
+                    
+            }
+          if(coinExists == true)
+            {
+                int coin = walletCoins.FindLastIndex(q => q.Name == "Quarter");
+                walletCoins.[coin].Remove();
+                Quarter quarter = new Quarter();
                 return quarter;
+
+
             }
             else
             {
                 return null;
             }
-
+            
+        
         }
         public Coin getDime()
         {
-            Dime dime = new Dime();
-            bool coinExists = walletCoins.Contains(dime);
+            bool coinExists = false;
+
+            foreach (Coin coin in walletCoins)
+            {
+                if (coin.Name == "Dime")
+                {
+
+                    coinExists = true;
+                }
+
+
+            }
             if (coinExists == true)
             {
-                walletCoins.Remove(dime);
+                int coin = walletCoins.FindLastIndex(q => q.Name == "Dime");
+                walletCoins.[coin].Remove();
+                Dime dime = new Dime();
                 return dime;
+
+
             }
             else
             {
